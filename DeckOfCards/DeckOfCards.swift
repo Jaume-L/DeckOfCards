@@ -1,32 +1,22 @@
 //
-//  ContentView.swift
+//  DeckOfCards.swift
 //  DeckOfCards
 //
 //  Created by Jaume, Louis (NA) on 22/03/2023.
 //
 
-import SwiftUI
+import Foundation
 
-struct ContentView: View {
-    @StateObject private var state = StateController()
+class CardGameHandler {
     let baseUrl = "https://deckofcardsapi.com"
     
-    var body: some View {
-        VStack {
-            Text(getDeck())
-                .padding()
-            Text("Test")
-        }
-        
-    }
-    
-    func getDeck() -> String {
+    func getDeck() {
         let path = "/api/deck/new/"
         
         guard let url = URL(string: baseUrl + path)
         else {
             print("bad url")
-            return ""
+            return
         }
         let request = URLRequest(url:url)
         
@@ -39,7 +29,7 @@ struct ContentView: View {
                 }
             }
         }.resume()
-        return request
+        
     }
     
     func parseJson(json: Data) -> Deck? {
@@ -52,10 +42,7 @@ struct ContentView: View {
             return nil
         }
     }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+    
+    
+    
 }
